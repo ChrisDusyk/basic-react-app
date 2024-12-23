@@ -31,6 +31,21 @@ app.get('/api/todos', async (req, res) => {
   }
 });
 
+// Add a todo
+app.post('/api/todos', async (req, res) => {
+  const { title } = req.body;
+  await pool.query('INSERT INTO public.todos (title) VALUES ($1)', [title]);
+  res.status(201).json({ message: 'Todo added successfully' });
+});
+
+// Update a todo
+app.put('/api/todos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, completed } = req.body;
+  await pool.query('UPDATE public.todos SET title = $1, completed = $2 WHERE id = $3', [title, completed, id]);
+  res.json({ message: 'Todo updated successfully' });
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 }); 

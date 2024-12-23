@@ -1,4 +1,4 @@
-import { getSheetData } from "../lib/api";
+import { getTodos, addTodo } from "../lib/api";
 import { useState, useEffect } from "react";
 
 export function Todos() {
@@ -6,7 +6,7 @@ export function Todos() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getSheetData();
+			const data = await getTodos();
 			setData(data);
 		};
 		fetchData();
@@ -14,6 +14,21 @@ export function Todos() {
 
 	return (
 		<div className="overflow-x-auto rounded-lg border border-gray-200 shadow-md m-5">
+			<div className="mb-4 flex justify-end">
+				<button
+					className="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+					onClick={() => {
+						const title = prompt("Enter todo title:");
+						if (title) {
+							addTodo(title, false).then(() => {
+								getTodos().then(newData => setData(newData));
+							});
+						}
+					}}
+				>
+					Add Todo
+				</button>
+			</div>
 			<table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
 				<thead className="bg-gray-50">
 					<tr>
