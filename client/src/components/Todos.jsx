@@ -1,4 +1,4 @@
-import { getTodos, addTodo } from "../lib/api";
+import { getTodos, addTodo, updateTodo } from "../lib/api";
 import { useState, useEffect } from "react";
 
 export function Todos() {
@@ -43,13 +43,20 @@ export function Todos() {
 							<td className="px-6 py-4">{row.id}</td>
 							<td className="px-6 py-4">{row.title}</td>
 							<td className="px-6 py-4">
-								<span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-									row.completed 
-										? "bg-green-50 text-green-700 ring-1 ring-green-600/20"
-										: "bg-red-50 text-red-700 ring-1 ring-red-600/20"
-								}`}>
+								<button
+									onClick={() => {
+										updateTodo(row.id, row.title, !row.completed).then(() => {
+											getTodos().then(newData => setData(newData));
+										});
+									}}
+									className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium cursor-pointer ${
+										row.completed 
+											? "bg-green-50 text-green-700 ring-1 ring-green-600/20"
+											: "bg-red-50 text-red-700 ring-1 ring-red-600/20"
+									}`}
+								>
 									{row.completed ? "Completed" : "Pending"}
-								</span>
+								</button>
 							</td>
 						</tr>
 					))}
