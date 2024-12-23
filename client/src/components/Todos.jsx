@@ -1,7 +1,7 @@
 import { getSheetData } from "../lib/api";
 import { useState, useEffect } from "react";
 
-export function Sheet() {
+export function Todos() {
 	const [data, setData] = useState([]);
 
 	useEffect(() => {

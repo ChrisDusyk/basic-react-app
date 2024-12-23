@@ -1,4 +1,4 @@
-import { Sheet } from './components/Sheet'
+import { Todos } from './components/Todos'
 
 export default function App() {
   return (
@@ -7,7 +7,7 @@ export default function App() {
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           Andrew&apos;s Todo List
         </h1>
-        <Sheet />
+        <Todos />
       </div>
     </div>
   );
